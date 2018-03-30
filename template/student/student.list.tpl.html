@@ -1,0 +1,44 @@
+{{define "studentListPage"}}
+
+<html>
+    {{template "header"}}
+    {{template "navbar"}}
+<body class="container">
+    <h2>Student</h2>
+    <div class="panel panel-default">
+        <div class="pannel-heading">
+            <a href="/student/new" class="btn btn-primary">Create</a>
+        </div>
+        <div class="panel-body">
+            <table class="table table-bordered table-condensed table-striped">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Name</td>
+                        <td>Description</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {{range .StudentList}}
+                        <tr>
+                            <td> Id : {{.StudentID}}</td>
+            
+                            <td> Name: {{.Name}}</td>
+
+                            <td> Description: {{.Description}}</td>
+
+                            <td><span class="badge badge-pill badge-danger">Delete</span></td>
+                        </tr>
+                     {{end}}
+                </tbody>
+             <table>
+        </div>
+    </div>
+
+</body>
+{{template "footer"}}
+<html>
+{{end}}
+

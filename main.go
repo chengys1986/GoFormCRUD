@@ -1,106 +1,68 @@
 package main
 
 import (
-	"bytes"
-	"fmt"
-	"html/template"
-	"io"
+	//	"bytes"
+	//	"fmt"
+	//	"html/template"
+	//	"io"
 	"log"
 	"net/http"
-	"path"
+	//	"path"
 )
 
 import (
-	_ "github.com/go-sql-driver/mysql"
-	"github.com/jmoiron/sqlx"
+//	_ "github.com/go-sql-driver/mysql"
+//	"github.com/jmoiron/sqlx"
+)
+
+import (
+	"./controller"
 )
 
 var (
-	// DB ...
-	DB *sqlx.DB
+// DB ...
+//	DB *sqlx.DB
 )
 
 func main() {
-	var err error
+	//	var err error
 
 	// Data Source Name
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?tx_isolation='READ-COMMITTED'",
-		"exp",       // Username
-		"exp",       // Password
-		"localhost", // Host
-		"3306",      // Port
-		"exp",       //Name
-	)
-
+	/*	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?tx_isolation='READ-COMMITTED'",
+			"exp",       // Username
+			"exp",       // Password
+			"localhost", // Host
+			"3306",      // Port
+			"exp",       //Name
+		)
+	*/
 	// Start database connection
-	DB, err = sqlx.Connect("mysql", dsn)
+	/*	DB, err = sqlx.Connect("mysql", dsn)
 
-	if err != nil {
-		fmt.Printf("Error: %s\n", err.Error())
-		return
-	}
+		if err != nil {
+			fmt.Printf("Error: %s\n", err.Error())
+			return
+		}
 
-	defer Close(DB)
-
+		defer Close(DB)
+	*/
 	// Routing
-	http.HandleFunc("/student/new", studentNewController)
-	http.HandleFunc("/student/form", studentFormController)
-	http.HandleFunc("/student/list", studentListController)
+	http.HandleFunc("/", controller.HomeController)
+	//	http.HandleFunc("/student/new", studentNewController)
+	//	http.HandleFunc("/student/form", studentFormController)
+	http.HandleFunc("/student/list", controller.StudentListController)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
 // Close ...
-func Close(c io.Closer) {
+/*func Close(c io.Closer) {
 	// Note: do we need to add recover() here?
 	if err := c.Close(); err != nil {
 		log.Printf(err.Error())
 	}
 }
-func studentListController(w http.ResponseWriter, r *http.Request) {
-	var err error
-	students := []Student{}
-
-	query := "SELECT * FROM Student;"
-
-	err = DB.Select(&students, query)
-
-	if err != nil {
-		fmt.Println("error!", err)
-	} else {
-
-		fmt.Printf("%#v", students)
-
-		w.Header().Set("Content-Type", "text/html; charset-utf-8")
-
-		var tplParam = struct {
-			Type        string
-			StudentList []Student
-		}{
-			"LIST",
-			students,
-		}
-		tplPath := "template/student.list.tpl.html"
-		tpl := template.New(path.Base(tplPath))
-
-		var outStr string
-
-		if tpl, err := tpl.ParseFiles(tplPath); err != nil {
-			log.Println(err)
-		} else {
-			var doc bytes.Buffer
-			tpl.Execute(&doc, tplParam)
-			outStr = doc.String()
-		}
-		w.Write([]byte(outStr))
-	}
-}
-
-type Student struct {
-	StudentID   int    `json:"studentid" db:"StudentID"`
-	Name        string `json:"name" db:"Name"`
-	Description string `json:"description" db:"Description"`
-}
-
+*/
+/*
 func studentFormController(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Fprintf(w, "form %s", r.URL.Path[1:])
@@ -130,7 +92,7 @@ func studentFormController(w http.ResponseWriter, r *http.Request) {
 			student.Name,
 			student.Description,
 		}
-		tplPath := "template/student.form.tpl.html"
+		tplPath := "template/student/student.form.tpl.html"
 		tpl := template.New(path.Base(tplPath))
 
 		var outStr string
@@ -145,6 +107,8 @@ func studentFormController(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(outStr))
 	}
 }
+*/
+/*
 func studentNewController(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		w.Header().Set("Content-Type", "text/html; charset-utf-9")
@@ -153,7 +117,7 @@ func studentNewController(w http.ResponseWriter, r *http.Request) {
 		}{
 			"NEW",
 		}
-		tplPath := "template/student.new.tpl.html"
+		tplPath := "template/student/student.new.tpl.html"
 		tpl := template.New(path.Base(tplPath))
 
 		var outStr string
@@ -182,4 +146,4 @@ func studentNewController(w http.ResponseWriter, r *http.Request) {
 			fmt.Println("error!", err)
 		}
 	}
-}
+}*/
