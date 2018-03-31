@@ -1,11 +1,18 @@
 {{ define "indexPage" }}
 <html>
-    tt
     
-    {{ template "header"}}
-
-    This is home page
-
+    {{ template "header" }}
+    {{ template "navbar" }}
+    <body class="container">
+    <div class = "panel panel-default">
+        <div class = "panel-heading">
+            Welcome
+        </div>
+        <div class="panel-body">
+            This is home page
+        </div>
+    </div>
+    </body>
     {{ template "footer"}}
 </html>
 {{end}}

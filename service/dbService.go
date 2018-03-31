@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"strconv"
 )
 
 import (
@@ -43,7 +44,6 @@ func loadDB() {
 		closeDB(DB)
 		return
 	}
-	//	defer closeDB(DB)
 }
 
 // Close ...
@@ -57,7 +57,6 @@ func closeDB(c io.Closer) {
 
 func GetStudents() []model.Student {
 	fmt.Println("DBService: Get Students")
-
 	loadDB()
 
 	students := []model.Student{}
@@ -72,4 +71,71 @@ func GetStudents() []model.Student {
 	fmt.Println("load students successfully.")
 	closeDB(DB)
 	return students
+}
+
+func NewStudent(student model.Student) bool {
+	fmt.Println("DBService: New a student")
+	var res bool = true
+	loadDB()
+
+	query := "INSERT INTO Student"
+	query += "(Name, Description)"
+	query += "VALUES (:Name, :Description)"
+	_, err = DB.NamedExec(query, student)
+	if err != nil {
+		res = false
+	}
+	closeDB(DB)
+	return res
+}
+
+func GetStudent(id string) (error, model.Student) {
+	fmt.Println("DBService: Get Student")
+	student := model.Student{}
+	loadDB()
+
+	query := "SELECT * FROM Student "
+	query += "WHERE studentid = "
+	query += id
+	query += ";"
+	err = DB.Get(&student, query)
+
+	closeDB(DB)
+	return err, student
+}
+
+func UpdateStudent(student model.Student) bool {
+	fmt.Println("DBService: Update the student")
+	var res bool = true
+	loadDB()
+
+	query := "UPDATE Student "
+	query += "SET Name = :Name, Description = :Description "
+	query += "WHERE StudentID = :StudentID ;"
+
+	_, err = DB.NamedExec(query, student)
+	if err != nil {
+		res = false
+	}
+	closeDB(DB)
+	return res
+}
+
+func DeleteStudent(id string) bool {
+	fmt.Println("DBService: Delete Student")
+	var res bool = true
+	loadDB()
+
+	query := "DELETE FROM Student "
+	query += "WHERE StudentID = :StudentID ;"
+	intId, err := strconv.Atoi(id)
+	student := model.Student{}
+	student.StudentID = intId
+	_, err = DB.NamedExec(query, student)
+	if err != nil {
+		res = false
+	}
+
+	closeDB(DB)
+	return res
 }

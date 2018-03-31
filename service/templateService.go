@@ -43,6 +43,41 @@ func GetStudentListPage(students []model.Student) string {
 	return docHTML.String()
 }
 
+func GetStudentNewPage() string {
+	fmt.Println("service: GetStudentNewPage...")
+
+	var docHTML bytes.Buffer
+	err := loadTemplate("template/student/student.new.tpl.html").ExecuteTemplate(&docHTML, "studentNewPage", nil)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return ""
+	}
+	return docHTML.String()
+}
+
+func GetStudentFormPage(student model.Student) string {
+	fmt.Println("service: GetStudentFormPage...")
+	fmt.Printf("%#v\n", student)
+	var docHTML bytes.Buffer
+	err := loadTemplate("template/student/student.form.tpl.html").ExecuteTemplate(&docHTML, "studentFormPage", student)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return ""
+	}
+	return docHTML.String()
+}
+
+func GetStudentEditPage(student model.Student) string {
+	fmt.Println("service: GetStudentEditPage...")
+	fmt.Printf("%#v\n", student)
+	var docHTML bytes.Buffer
+	err := loadTemplate("template/student/student.edit.tpl.html").ExecuteTemplate(&docHTML, "studentEditPage", student)
+	if err != nil {
+		fmt.Printf("Error: %s\n", err)
+		return ""
+	}
+	return docHTML.String()
+}
 func loadTemplate(tplPath string) *template.Template {
 	return template.Must(template.ParseFiles(HeaderTpl, NavbarTpl, FooterTpl, tplPath))
 }

@@ -1,8 +1,28 @@
-{{Type}}
-<div>
-
-    Name:{{.Name}}<br>
-
-    Description:{{.Description}}<br>
-
-</div>
+{{ define "studentFormPage" }}
+<html>
+    {{template "header"}}
+    {{template "navbar"}}
+    <body class="container">
+        <h2>Student Details</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/student/edit?id={{ .StudentID }}" class="btn btn-primary">Edit</a>
+                <a href="/student/delete?id={{ .StudentID }}" class="btn btn-danger">Delete</a>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <span class="form-control-static">{{ .Name}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <span class="form-control-static">{{ .Description}}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    {{template "footer"}}
+</html>
+{{end}}

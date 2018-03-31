@@ -1,13 +1,25 @@
-{{.Type}}
-<div>
-    <form action="/student/new" method="post">
-
-        Name:<br>
-         <input type="text" name="name"><br>
-
-        Description:<br>
-         <textarea rows="4" cols="50" name = "description"> </textarea>
-
-         <input type="submit" value="submit">
-    </form>
-</div>
+{{ define "studentNewPage"}}
+<html>
+    {{template "header" }}
+    {{template "navbar" }}
+<body class="container">
+    <h2>Create a new Student</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form action="/student/new" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" name="description"rows="3"></textarea>
+                </div>
+                 <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+{{template "footer"}}
+</html>
+{{end}}

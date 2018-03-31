@@ -1,0 +1,31 @@
+{{ define "studentEditPage" }}
+<html>
+    {{template "header"}}
+    {{template "navbar"}}
+    <body class="container">
+        <h2>Student Details</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/student/form?id={{ .StudentID }}" class="btn btn-danger">Decline</a>
+            </div>
+            <div class="panel-body">
+                <form action="/student/edit" method="post">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text" id="name" name="name" value="{{ .Name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description" rows="3">
+                            {{ .Description }}
+                        </textarea>
+                    </div>
+                    <input type="hidden" name="studentid" value="{{ .StudentID }}">
+                    <button type="submit" class="btn btn-primary" >Save</button>
+                </form>
+            </div>
+        </div>
+    </body>
+    {{template "footer"}}
+</html>
+{{end}}
