@@ -2,6 +2,13 @@
 
 <html>
     {{template "header"}}
+    <script>
+        jQuery(document).ready(function($) {
+            $(".clickable-row").click(function() {
+                window.location = $(this).data("href");
+            });                        
+        });
+    </script>
     {{template "navbar"}}
 <body class="container">
     <h2>Student</h2>
@@ -31,16 +38,8 @@
              <table>
         </div>
     </div>
-    {{template "footer"}}
 </body>
+    {{template "footer"}}
 <html>
-
-    <script>
-        jQuery(document).ready(function($) {
-            $(".clickable-row").click(function() {
-                window.location = $(this).data("href");
-            });                        
-        });
-    </script>
 {{end}}
 

@@ -1,15 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 )
 
 import (
 	"./controller"
+	"./service"
+	//	"githut.com/chengys1986/GoFormCRUD/service/dbservice"
 )
 
 func main() {
+	fmt.Println("Starting up")
+
+	// init db
+	db, err := service.InitDB()
+	if err != nil {
+		fmt.Printf("DB Error: $s\n", err.Error())
+		return
+	}
+	defer service.CloseDB(db)
 
 	// Routing
 	http.HandleFunc("/", controller.HomeController)
