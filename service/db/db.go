@@ -11,6 +11,10 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+import (
+	"../config"
+)
+
 var (
 	// Global
 	Conn *sqlx.DB
@@ -25,11 +29,11 @@ func InitDB() (*sqlx.DB, error) {
 	// Data Source Name
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?tx_isolation='READ-COMMITTED'",
-		"exp",       // Username
-		"exp",       // Password
-		"localhost", // Host
-		"3306",      // Port
-		"exp",       // Name
+		config.ReadConfig("Database.Username"), // Username
+		config.ReadConfig("Database.Password"), // Password
+		config.ReadConfig("Database.Host"),     // Host
+		config.ReadConfig("Database.Port"),     // Port
+		config.ReadConfig("Database.Name"),     // Name
 	)
 	Conn, err = sqlx.Connect("mysql", dsn)
 	if err != nil {

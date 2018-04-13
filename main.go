@@ -9,11 +9,19 @@ import (
 import (
 	"./controller/home"
 	"./controller/student"
+	"./service/config"
 	"./service/db"
 )
 
 func main() {
 	fmt.Println("Starting up")
+
+	// init config
+	configErr := config.InitConfig()
+	if configErr != nil {
+		fmt.Printf("Config Error: $s\n", configErr.Error())
+		return
+	}
 
 	// init db
 	conn, err := db.InitDB()
