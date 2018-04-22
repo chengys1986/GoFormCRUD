@@ -86,6 +86,7 @@ func SrvStudentEdit(c *gin.Context) {
 	name := c.PostForm("name")
 	description := c.PostForm("description")
 	intId, err := strconv.Atoi(id)
+
 	if err != nil {
 		err := studentService.Update(model.Student{
 			StudentID:   intId,
@@ -109,8 +110,14 @@ func SrvStudentDelete(c *gin.Context) {
 
 	err := studentService.Delete(id)
 	if err != nil {
-		fmt.Printf("error: %s\n", err.Error())
+		c.JSON(http.StatusOK, gin.H{
+			"isSuccess":    false,
+			"ErrorMessage": err.Error(),
+		})
 	} else {
-		c.Redirect(http.StatusMovedPermanently, "/student/list")
+		c.JSON(http.StatusOK, gin.H{
+			"IsSuccess":    true,
+			"ErrorMessage": "",
+		})
 	}
 }

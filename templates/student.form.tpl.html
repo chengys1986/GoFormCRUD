@@ -6,7 +6,16 @@
                 $.ajax({
                     type: 'DELETE',
                     url: '/student/form/' + id + '/delete',
-                })
+                }).done(function(data) {
+                    console.log(data)
+                    if (data.IsSuccess == true) {
+                        window.location = "/student/list";    
+                    } else {
+                        alert(data.ErrorMessage)
+                    }
+                }).fail(function(err){
+                        alert(err)
+                });
             }
     </script>
     {{template "navbar"}}
