@@ -1,5 +1,3 @@
-{{define "studentListPage"}}
-
 <html>
     {{template "header"}}
     <script>
@@ -28,7 +26,7 @@
                 <tbody>
 
                     {{range .StudentList}}
-                    <tr class="clickable-row" data-href="/student/form?id={{.StudentID}}">
+                    <tr class="clickable-row" data-href="/student/form/{{.StudentID}}">
                             <td> Id : {{.StudentID}}</td>
                             <td> Name: {{.Name}}</td>
                             <td> Description: {{.Description}}</td>
@@ -40,6 +38,5 @@
     </div>
 </body>
     {{template "footer"}}
-<html>
-{{end}}
+</html>
 

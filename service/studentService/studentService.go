@@ -14,7 +14,7 @@ import (
 	"../db"
 )
 
-func GetStudents() []model.Student {
+func GetList() []model.Student {
 	fmt.Println("DBService: Get Students")
 
 	students := []model.Student{}
@@ -29,7 +29,7 @@ func GetStudents() []model.Student {
 	return students
 }
 
-func NewStudent(student model.Student) bool {
+func New(student model.Student) bool {
 	fmt.Println("DBService: New a student")
 	var res bool = true
 
@@ -43,7 +43,7 @@ func NewStudent(student model.Student) bool {
 	return res
 }
 
-func GetStudent(id string) (error, model.Student) {
+func Get(id string) (error, model.Student) {
 	fmt.Println("DBService: Get Student")
 	student := model.Student{}
 
@@ -56,35 +56,28 @@ func GetStudent(id string) (error, model.Student) {
 	return err, student
 }
 
-func UpdateStudent(student model.Student) bool {
+func Update(student model.Student) error {
 	fmt.Println("DBService: Update the student")
-	var res bool = true
 
 	query := "UPDATE Student "
 	query += "SET Name = :Name, Description = :Description "
 	query += "WHERE StudentID = :StudentID ;"
-
 	_, err := db.Conn.NamedExec(query, student)
-	if err != nil {
-		res = false
-	}
-	return res
+	return err
 }
 
-func DeleteStudent(id string) bool {
+func Delete(id string) error {
 	fmt.Println("DBService: Delete Student")
-	var res bool = true
 
 	intId, err := strconv.Atoi(id)
+	if err != nil {
+		return err
+	}
 	query := "DELETE FROM Student "
 	query += "WHERE StudentID = :StudentID ;"
 	student := model.Student{}
 	student.StudentID = intId
 
 	_, err = db.Conn.NamedExec(query, student)
-	if err != nil {
-		res = false
-	}
-
-	return res
+	return err
 }

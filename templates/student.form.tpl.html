@@ -1,0 +1,39 @@
+<html>
+    {{template "header"}}
+    <script>
+           function  deleteItem(id) {
+                alert(id)
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/student/form/' + id + '/delete',
+                })
+            }
+    </script>
+    {{template "navbar"}}
+    <body class="container">
+        <h2>Student Details</h2>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <a href="/student/form/{{ .StudentID }}/edit" class="btn btn-primary">Edit</a>
+                <span class="btn btn-danger" onclick="deleteItem('{{.StudentID}}')">Delete</span>
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <span name="id" class="form-control-static">{{ .StudentID}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <span name="name" class="form-control-static">{{ .Name}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <span name="description" class="form-control-static">{{ .Description}}</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    {{template "footer"}}
+</html>
